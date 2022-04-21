@@ -1,7 +1,6 @@
 package com.nology.fullstackapi;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,27 +17,23 @@ public class ProductController {
     ProductService service;
 
     @GetMapping(path = "/{id}")
-    public Product getProducts(@PathVariable Long id) {
-        return service.getProduct(id);
+    public ResponseEntity<Product> getProductsById(@RequestParam Long id) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.getProduct(id));
     }
 
 
     @GetMapping(path = "/")
-    public List<Product> getProducts() {
-        return service.getProduct();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getAllProducts());
+
     }
-
-
-    @GetMapping(path = "/")
-    public List<Product> getAllProducts() {
-        return service.getAllProducts();
-    }
-
 
     @PostMapping(path = "/")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.addProduct(product));
+    public ResponseEntity<String> createProduct(@RequestBody Product product) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.addProduct(product));
     }
+
 
 
     @PutMapping(path = "/{id}")
@@ -48,7 +43,7 @@ public class ProductController {
 
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.deleteProduct(id));
     }
 }

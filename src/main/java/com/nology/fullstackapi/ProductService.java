@@ -27,12 +27,14 @@ public class ProductService {
         return new ArrayList<>(repository.findAll());
     }
 
-    public void addProduct(Product product) {
+    public String addProduct(Product product) {
         repository.save(product);
+        return "Product added successfully";
     }
 
-    public void deleteProduct(Long id) {
+    public String deleteProduct(Long id) {
         repository.deleteById(id);
+        return "Product deleted successfully";
     }
 
     public Product updateProduct(Long id, Product product) throws Exception {
